@@ -1,10 +1,13 @@
 <html>
-  <head></head>
+  <head>
+    <style>
+    </style>
+  </head>
   <body>
     <p>
       <%= message %><br>
       <% if message == "You got it right!" %>
-        <%= "The SECRET NUMBER is #{settings.secret}" %>
+        <%= "The SECRET NUMBER is #{number}" %>
       <% end %>
     </p>
     <form>

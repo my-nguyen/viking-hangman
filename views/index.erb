@@ -1,18 +1,45 @@
 <html>
   <head>
+    <title>Hangman</title>
     <style>
+      h3 { color: green; }
+      h4 { color: red; }
     </style>
   </head>
   <body>
-    <p>
-      <%= message %><br>
-      <% if message == "You got it right!" %>
-        <%= "The SECRET NUMBER is #{number}" %>
+    <%# difficulty and letter are both nil only upon a new game %>
+    <% if difficulty.nil? && letter.nil? %>
+      <form>
+        <input type='text' name="difficulty" />
+        <input type='submit' value="Enter a difficulty level" />
+      </form>
+    <% else %>
+      <%# letter is nil when user just entered a difficulty level %>
+      <% setup(difficulty.to_i) if letter.nil? %>
+
+      <p>
+        <% if !letter.nil? %>
+          <%= "Guess '#{letter}' is #{(guess?(letter) ? 'correct' : 'incorrect')}" %><br/>
+          <%= "All the incorrect guesses: #{display_incorrect}" %><br/>
+        <% end %>
+        <%= "Number of guesses made: #{@@guesses}" %><br/>
+      </p>
+      <p><b>Hangman: <%= display_progress %></b><br/></p>
+
+      <% if victory? || game_over? %>
+        <% if victory? %>
+          <h3>Congratulations, you guessed the word <em><%= secret %></em> correctly!</h3>
+        <% else %>
+          <h4>Game over: You have reached a maximum of 5 guesses. The secret word is <em><%= secret %></em>.</h4>
+        <% end %>
+
+        <form><input type='submit' value="Start over!" /></form>
+      <% else %>
+        <form>
+          <input type='text' name="letter" />
+          <input type='submit' value="Guess a letter!" />
+        </form>
       <% end %>
-    </p>
-    <form>
-      <input type='text' name="guess" />
-      <input type='submit' value="Guess!" />
-    </form>
+    <% end %>
   </body>
 </html>

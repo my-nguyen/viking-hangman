@@ -2,8 +2,8 @@
   <head>
     <title>Hangman</title>
     <style>
-      h3 { color: green; }
-      h4 { color: red; }
+      .success { color: green; }
+      .failure { color: red; }
     </style>
   </head>
   <body>
@@ -19,19 +19,21 @@
 
       <p>
         <% if !letter.nil? %>
-          <%= "Guess '#{letter}' is #{(guess?(letter) ? 'correct' : 'incorrect')}" %><br/>
-          <%= "All the incorrect guesses: #{display_incorrect}" %><br/>
+          <%= "Guess '#{letter}' is #{(guess?(letter) ? 'correct' : 'incorrect')}" %><br>
+          <%= "All the incorrect guesses: #{display_incorrect}" %><br>
         <% end %>
-        <%= "Number of guesses made: #{@@guesses}" %><br/>
+        <%= "Number of guesses made: #{@@guesses}" %><br>
       </p>
-      <p><b>Hangman: <%= display_progress %></b><br/></p>
+      <p><b>Hangman: <%= display_progress %></b><br></p>
 
       <% if victory? || game_over? %>
-        <% if victory? %>
-          <h3>Congratulations, you guessed the word <em><%= secret %></em> correctly!</h3>
-        <% else %>
-          <h4>Game over: You have reached a maximum of 5 guesses. The secret word is <em><%= secret %></em>.</h4>
-        <% end %>
+        <p>
+          <% if victory? %>
+            <b class="success">Congratulations, you guessed the word <em><%= secret %></em> correctly!</b>
+          <% else %>
+            <b class="failure">Game over: You have reached a maximum of 5 guesses. The secret word is <em><%= secret %></em>.</b><br>
+          <% end %>
+        </p>
 
         <form><input type='submit' value="Start over!" /></form>
       <% else %>

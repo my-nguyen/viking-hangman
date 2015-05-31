@@ -25,10 +25,7 @@ helpers do
 
   def setup(length)
     @@secret = sample(length)
-    @@progress = ""
-    length.times do
-      @@progress << "_"
-    end
+    @@progress = '_' * length
     @@incorrect = ""
     @@guesses = 0
   end
